@@ -33,7 +33,7 @@
     <script>
         async function loadPronunciations() {
             try {
-                const response = await fetch("pronunciations.json");
+                const response = await fetch("https://wongjennjia.github.io/phonics-pronunciation/pronunciations.json");
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
