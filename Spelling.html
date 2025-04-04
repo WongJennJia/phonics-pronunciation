@@ -65,8 +65,10 @@
         }
         
         function playSound(url) {
+            console.log("Playing sound from: " + url); // Check if URL is passed correctly
             new Audio(url).play();
         }
+        
 
         // Load data when page loads
         window.onload = loadPronunciations;
