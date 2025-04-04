@@ -34,6 +34,9 @@
         async function loadPronunciations() {
             try {
                 const response = await fetch("pronunciations.json");
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
                 const pronunciations = await response.json();
                 
                 console.log(pronunciations); // Logs the data from pronunciations.json
@@ -60,7 +63,7 @@
                     wordsContainer.appendChild(wordDiv);
                 }
             } catch (error) {
-                console.error("Error loading pronunciation data:", error);
+                console.error("Error loading or parsing pronunciation data:", error);
             }
         }
         
