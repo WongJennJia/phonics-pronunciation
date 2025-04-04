@@ -36,22 +36,24 @@
                 const response = await fetch("pronunciations.json");
                 const pronunciations = await response.json();
                 
+                console.log(pronunciations); // Add this line to check if data is loaded correctly
+                
                 const wordsContainer = document.getElementById("words-container");
                 for (const [word, audioUrl] of Object.entries(pronunciations)) {
                     if (!audioUrl) continue; // Skip if pronunciation not found
-
+        
                     // Create elements dynamically
                     const wordDiv = document.createElement("div");
                     wordDiv.classList.add("word-container");
                     
                     const phoneticText = document.createElement("p");
                     phoneticText.innerHTML = `<strong>Word:</strong> ${word}`;
-
+        
                     const playButton = document.createElement("button");
                     playButton.classList.add("play-button");
                     playButton.innerHTML = "🔊 Play";
                     playButton.onclick = () => playSound(audioUrl);
-
+        
                     // Append elements
                     wordDiv.appendChild(phoneticText);
                     wordDiv.appendChild(playButton);
@@ -61,7 +63,7 @@
                 console.error("Error loading pronunciation data:", error);
             }
         }
-
+        
         function playSound(url) {
             new Audio(url).play();
         }
