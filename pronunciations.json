@@ -1,0 +1,26 @@
+{
+    "ride": {
+        "audio": "https://www.oxfordlearnersdictionaries.comhttps://www.oxfordlearnersdictionaries.com/media/english/uk_pron/r/rid/ride_/ride__gb_2.mp3",
+        "ipa": "/ra\u026ad/"
+    },
+    "bike": {
+        "audio": "https://www.oxfordlearnersdictionaries.comhttps://www.oxfordlearnersdictionaries.com/media/english/uk_pron/b/bik/bike_/bike__gb_4.mp3",
+        "ipa": "/ba\u026ak/"
+    },
+    "perfect": {
+        "audio": "https://www.oxfordlearnersdictionaries.comhttps://www.oxfordlearnersdictionaries.com/media/english/uk_pron/p/per/perfe/perfect__gb_1.mp3",
+        "ipa": "/\u02c8p\u025c\u02d0f\u026akt/"
+    },
+    "sleep": {
+        "audio": "https://www.oxfordlearnersdictionaries.comhttps://www.oxfordlearnersdictionaries.com/media/english/uk_pron/s/sle/sleep/sleep__gb_1.mp3",
+        "ipa": "/sli\u02d0p/"
+    },
+    "healthy": {
+        "audio": "https://www.oxfordlearnersdictionaries.comhttps://www.oxfordlearnersdictionaries.com/media/english/uk_pron/h/hea/healt/healthy__gb_2.mp3",
+        "ipa": "/\u02c8hel\u03b8i/"
+    },
+    "keep fit": {
+        "audio": "https://www.oxfordlearnersdictionaries.comhttps://www.oxfordlearnersdictionaries.com/media/english/uk_pron/k/kee/keep_/keep_fit_1_gb_1.mp3",
+        "ipa": "/\u02ccki\u02d0p \u02c8f\u026at/"
+    }
+}

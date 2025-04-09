@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phonics Pronunciation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .word-container {
+            margin-bottom: 20px;
+        }
+        .play-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .play-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Phonics Pronunciation</h1>
+    <div id="words-container"></div>
+
+    <script>
+        async function loadPronunciations() {
+            try {
+                // Adjust path to your pronunciations.json location
+                const response = await fetch("pronunciations.json");  // This assumes pronunciations.json is in the same directory
+                const pronunciations = await response.json();
+                
+                console.log(pronunciations); // Check if JSON is loaded correctly
+                
+                const wordsContainer = document.getElementById("words-container");
+                for (const [word, data] of Object.entries(pronunciations)) {
+                    if (!data.audio) continue; // Skip if no pronunciation found
+                    
+                    // Create elements dynamically
+                    const wordDiv = document.createElement("div");
+                    wordDiv.classList.add("word-container");
+                    
+                    const phoneticText = document.createElement("p");
+                    phoneticText.innerHTML = `<strong>Word:</strong> ${word} <br><strong>IPA:</strong> ${data.ipa}`;
+                    
+                    const playButton = document.createElement("button");
+                    playButton.classList.add("play-button");
+                    playButton.innerHTML = "🔊 Play";
+                    playButton.onclick = () => playSound(data.audio);
+                    
+                    // Append elements
+                    wordDiv.appendChild(phoneticText);
+                    wordDiv.appendChild(playButton);
+                    wordsContainer.appendChild(wordDiv);
+                }
+            } catch (error) {
+                console.error("Error loading pronunciation data:", error);
+            }
+        }
+
+        // Ensure loadPronunciations is called once the page is ready
+        window.onload = loadPronunciations;
+
+        function playSound(url) {
+            console.log("Playing sound from: " + url); // Check if URL is correct
+            new Audio(url).play();
+        }
+    </script>
+</body>
+</html>
