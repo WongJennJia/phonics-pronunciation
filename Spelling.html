@@ -4,27 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Phonics Pronunciation</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 50px;
-    }
-    .word-container {
-      margin-bottom: 20px;
-    }
-    .play-button {
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    .play-button:hover {
-      background-color: #0056b3;
-    }
-  </style>
 </head>
 <body>
   <h1>Phonics Pronunciation</h1>
@@ -33,38 +12,22 @@
   <script>
     async function loadPronunciations() {
       try {
-        // Use absolute URL for GitHub Pages
-        const response = await fetch("https://wongjennjia.github.io/phonics-pronunciation/pronunciations.json");
+        const response = await fetch("pronunciations.json"); // relative path
         const pronunciations = await response.json();
 
-        const wordsContainer = document.getElementById("words-container");
+        const container = document.getElementById("words-container");
 
-        for (const [word, audioUrl] of Object.entries(pronunciations)) {
-          if (!audioUrl) continue;
-
-          const wordDiv = document.createElement("div");
-          wordDiv.classList.add("word-container");
-
-          const wordText = document.createElement("p");
-          wordText.innerHTML = `<strong>Word:</strong> ${word}`;
-
-          const playButton = document.createElement("button");
-          playButton.classList.add("play-button");
-          playButton.textContent = "🔊 Play";
-          playButton.onclick = () => playSound(audioUrl);
-
-          wordDiv.appendChild(wordText);
-          wordDiv.appendChild(playButton);
-          wordsContainer.appendChild(wordDiv);
+        for (const [word, url] of Object.entries(pronunciations)) {
+          const div = document.createElement("div");
+          div.innerHTML = `
+            <p><strong>${word}</strong></p>
+            <button onclick="new Audio('${url}').play()">🔊 Play</button>
+          `;
+          container.appendChild(div);
         }
       } catch (error) {
-        console.error("Error loading pronunciation data:", error);
+        console.error("Error:", error);
       }
-    }
-
-    function playSound(url) {
-      const audio = new Audio(url);
-      audio.play();
     }
 
     window.onload = loadPronunciations;
