@@ -3,34 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Phonics Pronunciation</title>
+  <title>Phonics Pronunciation Home</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+    a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    a:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
-  <h1>Phonics Pronunciation</h1>
-  <div id="words-container"></div>
+  <h1>Welcome to Phonics Pronunciation</h1>
+  <p>Choose a spelling list to explore:</p>
 
-  <script>
-    async function loadPronunciations() {
-      try {
-        const response = await fetch("./pronunciations.json"); // relative path
-        const pronunciations = await response.json();
+  <a href="spelling-6/index.html">Spelling (6)</a>
+  <a href="spelling-7/index.html">Spelling (7)</a>
+  <!-- Add more as needed -->
 
-        const container = document.getElementById("words-container");
-
-        for (const [word, url] of Object.entries(pronunciations)) {
-          const div = document.createElement("div");
-          div.innerHTML = `
-            <p><strong>${word}</strong></p>
-            <button onclick="new Audio('${url}').play()">🔊 Play</button>
-          `;
-          container.appendChild(div);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-
-    window.onload = loadPronunciations;
-  </script>
 </body>
 </html>
