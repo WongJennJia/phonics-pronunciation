@@ -3,7 +3,8 @@ from bs4 import BeautifulSoup
 import json
 
 # Words to fetch pronunciation for
-words = ["ride", "bike", "perfect", "sleep", "healthy", "keep fit"]
+#words = ["ride", "bike", "perfect", "sleep", "healthy", "keep fit"]
+words = ["sport", "learn", "unhealthy", "survey", "hours", "read"]
 
 def get_pronunciation_and_ipa(word):
     url = f"https://www.oxfordlearnersdictionaries.com/definition/english/{word.replace(' ', '-')}"

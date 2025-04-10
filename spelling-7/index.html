@@ -1,77 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phonics Pronunciation</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        .word-container {
-            margin-bottom: 20px;
-        }
-        .play-button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .play-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Phonics Practice</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 30px;
+      background-color: #f0f8ff;
+    }
+    .word-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .word-box {
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      width: 300px;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .word {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+    .ipa {
+      color: #555;
+      font-size: 1.1em;
+    }
+    button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 8px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .number {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-right: 10px;
+      color: #333;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      font-size: 2em;
+      margin-bottom: 40px;
+    }
+    #day, #category, #date {
+      flex: 1;
+    }
+    #category {
+      font-weight: bold;
+      font-size: 1.5em;
+    }
+  </style>
 </head>
 <body>
-    <h1>Phonics Pronunciation</h1>
-    <div id="words-container"></div>
+  <div class="header">
+    <span id="day"></span>
+    <span id="category">Spelling 7</span>
+    <span id="date"></span>
+  </div>
 
-    <script>
-        async function loadPronunciations() {
-            try {
-                // Adjust path to your pronunciations.json location
-                const response = await fetch("pronunciations.json");  // This assumes pronunciations.json is in the same directory
-                const pronunciations = await response.json();
-                
-                console.log(pronunciations); // Check if JSON is loaded correctly
-                
-                const wordsContainer = document.getElementById("words-container");
-                for (const [word, data] of Object.entries(pronunciations)) {
-                    if (!data.audio) continue; // Skip if no pronunciation found
-                    
-                    // Create elements dynamically
-                    const wordDiv = document.createElement("div");
-                    wordDiv.classList.add("word-container");
-                    
-                    const phoneticText = document.createElement("p");
-                    phoneticText.innerHTML = `<strong>Word:</strong> ${word} <br><strong>IPA:</strong> ${data.ipa}`;
-                    
-                    const playButton = document.createElement("button");
-                    playButton.classList.add("play-button");
-                    playButton.innerHTML = "🔊 Play";
-                    playButton.onclick = () => playSound(data.audio);
-                    
-                    // Append elements
-                    wordDiv.appendChild(phoneticText);
-                    wordDiv.appendChild(playButton);
-                    wordsContainer.appendChild(wordDiv);
-                }
-            } catch (error) {
-                console.error("Error loading pronunciation data:", error);
-            }
+  <div class="word-list" id="word-list"></div>
+
+  <script>
+    // Load pronunciation data
+    fetch('pronunciations.json')
+      .then(response => response.json())
+      .then(data => {
+        const wordListContainer = document.getElementById('word-list');
+        let index = 1;
+
+        for (const [word, pronunciation] of Object.entries(data)) {
+          const wordBox = document.createElement('div');
+          wordBox.classList.add('word-box');
+
+          const wordElement = document.createElement('div');
+          wordElement.classList.add('word');
+          wordElement.innerHTML = `<span class="number">${index}.</span>`;
+
+          const ipaElement = document.createElement('div');
+          ipaElement.classList.add('ipa');
+          ipaElement.textContent = pronunciation.ipa;
+
+          const audioElement = document.createElement('audio');
+          audioElement.src = pronunciation.audio;
+
+          const playButton = document.createElement('button');
+          playButton.textContent = "🔊 Play";
+          playButton.onclick = () => audioElement.play();
+
+          wordBox.appendChild(wordElement);
+          wordBox.appendChild(ipaElement);
+          wordBox.appendChild(audioElement);
+          wordBox.appendChild(playButton);
+
+          wordListContainer.appendChild(wordBox);
+          index++;
         }
+      })
+      .catch(error => {
+        console.error("Error loading pronunciations:", error);
+      });
 
-        // Ensure loadPronunciations is called once the page is ready
-        window.onload = loadPronunciations;
-
-        function playSound(url) {
-            console.log("Playing sound from: " + url); // Check if URL is correct
-            new Audio(url).play();
-        }
-    </script>
+    // Insert current day and date
+    const today = new Date();
+    document.getElementById('day').textContent = today.toLocaleString('en-US', { weekday: 'long' });
+    document.getElementById('date').textContent = today.toLocaleDateString('en-US', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  </script>
 </body>
 </html>
